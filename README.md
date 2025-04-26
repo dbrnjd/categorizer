@@ -1,18 +1,18 @@
-## Getting Started
+This coursework tries to develop a Java application that reads patient data from a file in CSV
+format, which is saved in Hadoop Distributed File System (HDFS). The application then
+classifies the data based on specified fields (Patient ID, Region, and Symptom), generates
+classified data, and writes the output files in JSON format to HDFS again with a Yarn cluster.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 
-## Folder Structure
+To compile your code successfully, the javac command needs a classpath that includes:
 
-The workspace contains two folders by default, where:
+The current directory (.) where your .java files are located.
+Your json-20250107.jar file.
+The Hadoop library JAR files (hadoop-common, hadoop-hdfs, and their dependencies).
+Crucially, the standard Java 11 library modules.
+The standard Java 11 library is typically located in the jmods directory within your JDK installation ($JAVA_HOME/jmods). We can use the --module-path option with javac to tell it where to find these modules.
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Run the javac command with the complete classpath and module path:
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+javac --module-path /path/to/your/java11/jmods -cp ".:json-20250107.jar:/usr/local/hadoop/share/hadoop/common/*:/usr/local/hadoop/share/hadoop/common/lib/*:/usr/local/hadoop/share/hadoop/hdfs/*:/usr/local/hadoop/share/hadoop/hdfs/lib/*" Patient.java PatientDataProcessor.java
